@@ -1,0 +1,156 @@
+@use 'sass:color';
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/mixins.scss' as mix;
+
+.city-card {
+  background-color: vars.$card-bg;
+  border-radius: vars.$border-radius;
+  box-shadow: vars.$box-shadow;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: vars.$box-shadow-hover;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__remove {
+    background: none;
+    border: none;
+    color: vars.$text-muted;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50%;
+    line-height: 1;
+
+    &:hover {
+      color: vars.$danger;
+      background-color: rgba(vars.$danger, 0.1);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__weather {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  &__icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  &__temp {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+  }
+
+  &__details {
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    margin: 0 0 0.5rem;
+    text-transform: capitalize;
+  }
+
+  &__updated {
+    font-size: 0.875rem;
+    color: vars.$text-muted;
+    margin: 0;
+  }
+
+  &__update-btn {
+    align-self: flex-end;
+    background-color: vars.$primary;
+    color: white;
+    border: none;
+    border-radius: vars.$border-radius-sm;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: color.adjust(vars.$primary, $lightness: -10%);
+    }
+
+    &:disabled {
+      background-color: color.adjust(vars.$primary, $lightness: 20%);
+      cursor: not-allowed;
+    }
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    color: vars.$text-muted;
+  }
+}
+
+@include mix.responsive(tablet) {
+  .city-card {
+    padding: 1.25rem;
+
+    &__content {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__weather {
+      margin-bottom: 0;
+    }
+
+    &__details {
+      margin-bottom: 0;
+      flex: 1;
+      padding: 0 1rem;
+    }
+  }
+}
+
+@include mix.responsive(mobile) {
+  .city-card {
+    padding: 1rem;
+
+    &__name {
+      font-size: 1.25rem;
+    }
+
+    &__icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    &__temp {
+      font-size: 1.75rem;
+    }
+  }
+}

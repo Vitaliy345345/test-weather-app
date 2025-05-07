@@ -1,0 +1,123 @@
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/mixins.scss' as mix;
+
+.hourly-forecast {
+  display: flex;
+  height: 200px;
+  position: relative;
+  margin-bottom: 2rem;
+
+  &__temp-scale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem 0.5rem 2rem 0;
+    border-right: 1px dashed vars.$border-color;
+    width: 60px;
+  }
+
+  &__temp-label {
+    font-size: 0.875rem;
+    color: vars.$text-muted;
+    white-space: nowrap;
+  }
+
+  &__graph {
+    flex: 1;
+    display: flex;
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  &__hour {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: vars.$primary;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    z-index: 2;
+
+    &:hover .hourly-forecast__tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__tooltip {
+    position: absolute;
+    background-color: vars.$dark;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: vars.$border-radius-sm;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.2s,
+      visibility 0.2s;
+    z-index: 3;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: vars.$dark transparent transparent transparent;
+    }
+  }
+
+  &__hour-info {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+
+    @include mix.responsive(mobile) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__time {
+    font-size: 0.875rem;
+    text-align: center;
+
+    @include mix.responsive(mobile) {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+@include mix.responsive(mobile) {
+  .hourly-forecast {
+    height: 180px;
+
+    &__temp-scale {
+      width: 50px;
+    }
+  }
+}

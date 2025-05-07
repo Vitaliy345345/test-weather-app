@@ -1,0 +1,81 @@
+@use 'sass:color';
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/mixins.scss' as mix;
+
+.city-form {
+  margin-bottom: 2rem;
+
+  &__input-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid vars.$border-color;
+    border-radius: vars.$border-radius-sm;
+    background-color: vars.$input-bg;
+    color: vars.$text-color;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: vars.$primary;
+      box-shadow: 0 0 0 3px rgba(vars.$primary, 0.2);
+    }
+
+    &--error {
+      border-color: vars.$danger;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(vars.$danger, 0.2);
+      }
+    }
+  }
+
+  &__button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background-color: vars.$primary;
+    border: none;
+    border-radius: vars.$border-radius-sm;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: color.adjust(vars.$primary, $lightness: -10%);
+    }
+
+    &:disabled {
+      background-color: color.adjust(vars.$primary, $lightness: 20%);
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    margin-top: 0.5rem;
+    color: vars.$danger;
+    font-size: 0.875rem;
+  }
+}
+
+// Responsive styles
+@include mix.responsive(mobile) {
+  .city-form {
+    &__input-group {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    &__button {
+      width: 100%;
+    }
+  }
+}
